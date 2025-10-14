@@ -1,12 +1,15 @@
-package com.doansamquoc.wemoment.entity;
+package com.doansamquoc.wemoment.moment.entity;
 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.doansamquoc.wemoment.enums.MediaType;
+import com.doansamquoc.wemoment.common.enums.MediaType;
+import com.doansamquoc.wemoment.common.enums.MomentPrivacy;
+import com.doansamquoc.wemoment.user.entity.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,30 +25,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@Table(name = "comments")
+@Table(name = "moments")
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Comment {
+public class Moment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
     @ManyToOne
-    @JoinColumn(name = "moment_id", nullable = false)
-    Moment moment;
-
-    @ManyToOne
-    @JoinColumn(name = "commenter_id", nullable = false)
+    @JoinColumn(name = "creator_id", nullable = false)
     User user;
 
-    String text;
-
+    String caption;
     @Enumerated(EnumType.STRING)
     MediaType mediaType = MediaType.IMAGE;
     String mediaUrl;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    MomentPrivacy privacy = MomentPrivacy.PUBLIC;
 
     @CreationTimestamp
     LocalDateTime createdAt;

@@ -1,0 +1,52 @@
+server:
+    port: 9000
+    error:
+        whitelabel:
+            enabled: false
+spring:
+    # security:
+    #     oauth2:
+    #         client:
+    #             registration:
+    #                 google:
+    #                     client-id: ${GOOGLE_CLIENT_ID}
+    #                     client-secret: ${GOOGLE_SECRET_ID}
+    #                     scope:
+    #                         - openid
+    #                         - email
+    #                         - profile
+    #             provider:
+    #                 google:
+    #                     authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+    #                     token-uri: https://oauth2.googleapis.com/token
+    #                     user-info-uri: https://www.googleapis.com/oauth2/v2/userinfo
+    datasource:
+        url: jdbc:postgresql://localhost:5432/wemoment
+        username: postgres
+        password: 26052004
+        driver-class-name: org.postgresql.Driver
+    web:
+        resources:
+            add-mappings: false
+    jpa:
+        hibernate:
+            ddl-auto: update
+        open-in-view: false
+        show-sql: true
+        properties:
+            hibernate:
+                format-sql: true
+                use-sql-comments: true
+                jdbc:
+                    time-zone: Asia/Ho_Chi_Minh
+logging:
+    level:
+        org:
+            springframework:
+                web: DEBUG
+            hibernate:
+                SQL: DEBUG
+
+            type:
+                descriptor:
+                    BasicBinder: TRACE

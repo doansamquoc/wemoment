@@ -1,4 +1,4 @@
-package com.doansamquoc.wemoment.enums;
+package com.doansamquoc.wemoment.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

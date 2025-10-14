@@ -1,4 +1,4 @@
-package com.doansamquoc.wemoment.entity;
+package com.doansamquoc.wemoment.user.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.doansamquoc.wemoment.enums.Gender;
+import com.doansamquoc.wemoment.common.enums.Gender;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

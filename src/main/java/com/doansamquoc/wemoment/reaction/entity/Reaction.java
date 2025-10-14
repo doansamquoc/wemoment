@@ -1,12 +1,8 @@
-package com.doansamquoc.wemoment.entity;
+package com.doansamquoc.wemoment.reaction.entity;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.doansamquoc.wemoment.enums.MediaType;
-import com.doansamquoc.wemoment.enums.MomentPrivacy;
+import com.doansamquoc.wemoment.common.enums.ReactionType;
+import com.doansamquoc.wemoment.moment.entity.Moment;
+import com.doansamquoc.wemoment.user.entity.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,39 +14,35 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@Table(name = "moments")
+@Table(name = "reactions", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "moment_id", "reactor_id" })
+})
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Moment {
+public class Reaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
     @ManyToOne
-    @JoinColumn(name = "creator_id", nullable = false)
-    User user;
+    @JoinColumn(name = "moment_id", nullable = false)
+    Moment moment;
 
-    String caption;
-    @Enumerated(EnumType.STRING)
-    MediaType mediaType = MediaType.IMAGE;
-    String mediaUrl;
+    @ManyToOne
+    @JoinColumn(name = "reactor_id", nullable = false)
+    User user;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    MomentPrivacy privacy = MomentPrivacy.PUBLIC;
-
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
+    ReactionType reaction;
 }
