@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Gender {
-    MALE("Male"), FEMALE("Female"), OTHER("Other");
+public enum MediaType {
+    IMAGE("image"), VIDEO("Video");
 
     private final String name;
 }

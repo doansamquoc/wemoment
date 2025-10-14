@@ -3,10 +3,10 @@ package com.doansamquoc.wemoment.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
-public enum Gender {
-    MALE("Male"), FEMALE("Female"), OTHER("Other");
+@Getter
+public enum ReactionType {
+    LIKE("Like"), LOVE("Love"), HAHA("Haha"), WOW("Wow"), SAD("Sad"), ANGRY("Angry");
 
     private final String name;
 }
