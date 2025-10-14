@@ -53,6 +53,8 @@ public class User {
     @Column(nullable = true)
     private String phoneNumber;
 
+    private boolean isActive = true;
+
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
