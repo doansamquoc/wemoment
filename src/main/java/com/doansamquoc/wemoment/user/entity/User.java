@@ -2,11 +2,14 @@ package com.doansamquoc.wemoment.user.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.doansamquoc.wemoment.common.enums.AuthProvider;
 import com.doansamquoc.wemoment.common.enums.Gender;
+import com.doansamquoc.wemoment.common.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +20,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,39 +29,47 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    String id;
 
     @Column(unique = true, nullable = false)
-    private String username;
-    @Column(nullable = false)
-    private String hashedPassword;
+    String username;
 
     @Column(nullable = false)
-    private String firstName;
-    private String lastName;
+    String hashedPassword;
 
     @Column(nullable = false)
-    private String displayName;
-    private String avatarUrl;
-    private String bio;
-    private LocalDate dateOfBirth;
+    String firstName;
+    String lastName;
+
+    @Column(nullable = false)
+    String displayName;
+    String avatarUrl;
+    String bio;
+    LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
-    private String address;
-    private String emailAddress;
+    Gender gender;
+    String address;
+    String emailAddress;
 
     @Column(nullable = true)
-    private String phoneNumber;
+    String phoneNumber;
 
-    private boolean isActive = true;
+    boolean isActive;
+
+    @Enumerated(EnumType.STRING)
+    Set<AuthProvider> providers;
+
+    @Enumerated(EnumType.STRING)
+    Set<Role> roles;
 
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    LocalDateTime updatedAt;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 }

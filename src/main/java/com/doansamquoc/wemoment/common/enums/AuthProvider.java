@@ -1,0 +1,18 @@
+package com.doansamquoc.wemoment.common.enums;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.experimental.FieldDefaults;
+
+@Getter
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public enum AuthProvider {
+    LOCAL("Local"),
+    GOOGLE("Google"),
+    FACEBOOK("Facebook"),
+    MICROSOFT("Microsoft");
+
+    String name;
+}

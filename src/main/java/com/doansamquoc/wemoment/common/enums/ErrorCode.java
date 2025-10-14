@@ -20,6 +20,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(2000, HttpStatus.NOT_FOUND, "User not found"),
     EMAIL_ALREADY_EXISTS(2001, HttpStatus.CONFLICT, "Email already exists"),
     INVALID_CREDENTIALS(2002, HttpStatus.UNAUTHORIZED, "Invalid email or password"),
+    USERNAME_ALREADY_EXISTS(2003, HttpStatus.CONFLICT, "Username already exists"),
 
     // --- SYSTEM (9000 -> 9999) ---
     INTERNAL_ERROR(9000, HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");

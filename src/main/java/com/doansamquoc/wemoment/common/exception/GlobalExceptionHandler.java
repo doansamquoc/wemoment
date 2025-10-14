@@ -34,6 +34,7 @@ public class GlobalExceptionHandler {
         ErrorResponse error = ErrorResponse.builder()
                 .success(false)
                 .status(500)
+                .code(9000)
                 .error("INTERNAL_ERROR")
                 .message(exception.getMessage())
                 .path(webRequest.getDescription(false))
