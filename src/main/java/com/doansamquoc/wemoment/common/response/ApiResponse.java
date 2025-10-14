@@ -18,12 +18,11 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BaseResponse {
+public class ApiResponse<T> {
     boolean success;
-    int statusCode;
+    int status;
     String message;
-
-    @Builder.Default
+    T data;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime timestamp = LocalDateTime.now();
+    LocalDateTime timestamp;
 }
