@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
         ErrorResponse error = ErrorResponse.builder()
                 .success(false)
                 .status(code.getStatus().value())
+                .code(code.getCode())
                 .error(code.name())
                 .message(code.getMessage())
                 .path(webRequest.getDescription(false))
