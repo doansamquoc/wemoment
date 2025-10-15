@@ -1,6 +1,8 @@
 package com.doansamquoc.wemoment.user.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +29,11 @@ public class UserController {
     public ResponseEntity<ApiResponse<UserResponse>> createUser(@RequestBody UserCreationRequest request) {
         UserResponse userResponse = userService.createUser(request);
         return ResponseFactory.created(userResponse, "User created successfully");
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<ApiResponse<UserResponse>> findByUsername(@PathVariable String username) {
+        UserResponse userResponse = userService.findByUserName(username);
+        return ResponseFactory.success(userResponse, "Success");
     }
 }

@@ -3,6 +3,8 @@ package com.doansamquoc.wemoment.user.service.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
+
 import com.doansamquoc.wemoment.common.enums.AuthProvider;
 import com.doansamquoc.wemoment.common.enums.ErrorCode;
 import com.doansamquoc.wemoment.common.enums.Role;
@@ -18,6 +20,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+@Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
@@ -48,4 +51,12 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.toUserResponse(user);
     }
+
+    @Override
+    public UserResponse findByUserName(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return userMapper.toUserResponse(user);
+    }
+
 }
