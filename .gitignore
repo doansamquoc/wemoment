@@ -34,3 +34,4 @@ build/
 
 # My ignore
 run.ps1
+.env

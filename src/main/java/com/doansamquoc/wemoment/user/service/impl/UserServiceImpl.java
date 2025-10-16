@@ -3,6 +3,7 @@ package com.doansamquoc.wemoment.user.service.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.doansamquoc.wemoment.common.enums.AuthProvider;
@@ -26,6 +27,7 @@ import lombok.experimental.FieldDefaults;
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     UserMapper userMapper;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse createUser(UserCreationRequest request) {
@@ -44,6 +46,9 @@ public class UserServiceImpl implements UserService {
         Set<AuthProvider> providers = new HashSet<>();
         providers.add(AuthProvider.LOCAL);
 
+        String hashedPassword = passwordEncoder.encode(request.getHashedPassword());
+
+        user.setHashedPassword(hashedPassword);
         user.setRoles(roles);
         user.setProviders(providers);
 
