@@ -5,12 +5,27 @@ import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseFactory {
+
     public static <T> ResponseEntity<ApiResponse<T>> success(T data, String message) {
         ApiResponse<T> response = ApiResponse.<T>builder()
                 .success(true)
                 .status(HttpStatus.OK.value())
                 .data(data)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    public static ResponseEntity<ApiResponse<?>> success(String message) {
+        ApiResponse<?> response = ApiResponse.builder()
+                .success(true)
+                .status(HttpStatus.OK.value())
                 .message(message)
                 .timestamp(LocalDateTime.now())
                 .build();

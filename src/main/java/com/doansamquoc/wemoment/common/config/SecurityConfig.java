@@ -10,10 +10,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.doansamquoc.wemoment.common.filter.JwtAuthenticationFilter;
 import com.doansamquoc.wemoment.user.service.CustomUserDetailsService;
 
 import lombok.AccessLevel;
@@ -26,6 +28,7 @@ import lombok.experimental.FieldDefaults;
 public class SecurityConfig {
 
     CustomUserDetailsService userDetailsService;
+    JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,8 +40,9 @@ public class SecurityConfig {
         httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/error", "/oauth2/**", "/api/auth/**", "/api/user/**").permitAll()
-                        .anyRequest().authenticated());
+                .requestMatchers("/error", "/oauth2/**", "/api/auth/**", "/api/user/**").permitAll()
+                .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
