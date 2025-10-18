@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.doansamquoc.wemoment.common.response.ApiResponse;
-import com.doansamquoc.wemoment.common.response.ResponseFactory;
+import com.doansamquoc.wemoment.common.response.ApiResponseFactory;
 import com.doansamquoc.wemoment.user.dto.UserCreationRequest;
 import com.doansamquoc.wemoment.user.dto.UserResponse;
 import com.doansamquoc.wemoment.user.service.UserService;
@@ -28,12 +28,12 @@ public class UserController {
     @PostMapping
     public ResponseEntity<ApiResponse<UserResponse>> createUser(@RequestBody UserCreationRequest request) {
         UserResponse userResponse = userService.createUser(request);
-        return ResponseFactory.created(userResponse, "User created successfully");
+        return ApiResponseFactory.created(userResponse, "User created successfully");
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<ApiResponse<UserResponse>> findByUsername(@PathVariable String username) {
         UserResponse userResponse = userService.findByUserName(username);
-        return ResponseFactory.success(userResponse, "Success");
+        return ApiResponseFactory.success(userResponse, "Success");
     }
 }

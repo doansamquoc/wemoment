@@ -1,5 +1,6 @@
 package com.doansamquoc.wemoment.common.response;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -21,6 +22,5 @@ public class ErrorResponse {
     String error;
     String message;
     String path;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime timestamp;
+    Instant timestamp;
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.doansamquoc.wemoment.auth.dto.LoginRequest;
 import com.doansamquoc.wemoment.auth.service.AuthService;
 import com.doansamquoc.wemoment.common.response.ApiResponse;
-import com.doansamquoc.wemoment.common.response.ResponseFactory;
+import com.doansamquoc.wemoment.common.response.ApiResponseFactory;
 import com.doansamquoc.wemoment.user.dto.UserResponse;
 import com.doansamquoc.wemoment.user.entity.User;
 
@@ -31,7 +31,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<UserResponse>> login(@RequestBody LoginRequest request, HttpServletResponse response) {
         UserResponse userResponse = authService.login(request, response);
-        return ResponseFactory.success(userResponse, "Success");
+        return ApiResponseFactory.success(userResponse, "Success");
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class AuthController {
     public ResponseEntity<ApiResponse<?>> logout(Authentication authentication, HttpServletResponse response) {
         User user = (User) authentication.getPrincipal();
         authService.logout(user, response);
-        return ResponseFactory.success("Logged out successfully");
+        return ApiResponseFactory.success("Logged out successfully");
     }
 
 }
