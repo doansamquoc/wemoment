@@ -1,5 +1,6 @@
 package com.doansamquoc.wemoment.common.response;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -23,6 +24,5 @@ public class ApiResponse<T> {
     int status;
     String message;
     T data;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime timestamp;
+    Instant timestamp;
 }

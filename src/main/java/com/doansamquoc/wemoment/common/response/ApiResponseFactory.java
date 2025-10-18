@@ -1,5 +1,6 @@
 package com.doansamquoc.wemoment.common.response;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseFactory {
+public class ApiResponseFactory {
 
     public static <T> ResponseEntity<ApiResponse<T>> success(T data, String message) {
         ApiResponse<T> response = ApiResponse.<T>builder()
@@ -16,7 +17,7 @@ public class ResponseFactory {
                 .status(HttpStatus.OK.value())
                 .data(data)
                 .message(message)
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .build();
 
         return ResponseEntity.ok(response);
@@ -27,7 +28,7 @@ public class ResponseFactory {
                 .success(true)
                 .status(HttpStatus.OK.value())
                 .message(message)
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .build();
 
         return ResponseEntity.ok(response);
@@ -39,7 +40,7 @@ public class ResponseFactory {
                 .status(HttpStatus.CREATED.value())
                 .data(data)
                 .message(message)
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

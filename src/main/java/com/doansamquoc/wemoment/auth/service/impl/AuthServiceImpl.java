@@ -1,6 +1,5 @@
 package com.doansamquoc.wemoment.auth.service.impl;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -49,22 +48,13 @@ public class AuthServiceImpl implements AuthService {
         String token = jwtTokenProvider.generateToken(user.getUsername());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 
-        ResponseCookie accessCookie = ResponseCookie.from("accessToken", token)
-                .httpOnly(true)
-                .secure(true)
-                .path("/")
-                .maxAge(15 * 60)
-                .build();
+        // Create cookie
+        ResponseCookie accessCookie = CookieUtils.createCookie("accessToken", token, 15 * 60, "/");
+        ResponseCookie refreshCookie = CookieUtils.createCookie("refreshToken", refreshToken.getToken(), 7 * 24 * 60 * 60, "/api/auth/refresh");
 
-        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken.getToken())
-                .httpOnly(true)
-                .secure(true)
-                .path("/api/auth/refresh")
-                .maxAge(7 * 24 * 60 * 60)
-                .build();
-
-        response.addHeader(HttpHeaders.SET_COOKIE, accessCookie.toString());
-        response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
+        // Add cookie to header
+        CookieUtils.addCookieToHeader(response, accessCookie);
+        CookieUtils.addCookieToHeader(response, refreshCookie);
 
         return userMapper.toUserResponse(user);
     }
